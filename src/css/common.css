@@ -1,0 +1,15 @@
+.flex-row {
+    display: flex;
+    align-items: center;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fill-screen {
+    width: 100vw;
+    height: 100vh;
+}
