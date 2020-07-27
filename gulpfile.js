@@ -30,15 +30,21 @@ function concatCss() {
 function concatJS() {
   return src('src/js/*.js')
     .pipe($.concat('build.js'))
-    .pipe($.uglify())
     .pipe(
       $.rename({
         suffix: '.min',
       }),
     )
+    .pipe(
+      $.babel({
+        presets: ['env'],
+        plugins: ['@babel/plugin-proposal-object-rest-spread'],
+      }),
+    )
+    .pipe($.uglify())
     .pipe(dest('dist/js'))
     .pipe($.livereload())
-    .pipe($.connect.reload())
+    .pipe($.connect.reload());
 }
 
 function compressHtml() {
@@ -58,7 +64,7 @@ function server() {
     root: 'dist/',
     livereload: true,
     port: 3000,
-  })
+  });
 
   watch('src/js/*.js', concatJS);
 
